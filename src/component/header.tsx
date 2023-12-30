@@ -1,9 +1,9 @@
-import  { useEffect } from 'react';
-import WeatherIcon from '../assets/weathericon.png';
-import { useAppContext } from '../context/contextProvider';
-import axios, { isAxiosError } from 'axios';
-import  Input from './Input';
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { useEffect } from "react";
+import WeatherIcon from "../assets/weathericon.png";
+import { useAppContext } from "../context/contextProvider";
+import axios, { isAxiosError } from "axios";
+import Input from "./Input";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 const Header = () => {
   const {
@@ -15,7 +15,7 @@ const Header = () => {
     lightTheme,
     setNow,
     setLoading,
-    setMessage
+    setMessage,
   } = useAppContext();
 
   useEffect(() => {
@@ -32,14 +32,13 @@ const Header = () => {
       const response = await axios.get(apiUrl);
       const newWeatherData = response.data;
 
-      localStorage.setItem('weatherData', JSON.stringify(newWeatherData));
+      localStorage.setItem("weatherData", JSON.stringify(newWeatherData));
       setWeatherData(newWeatherData);
     } catch (error) {
-      
-      console.error('Error fetching weather data:',error);
+      console.error("Error fetching weather data:", error);
       if (isAxiosError(error)) {
-        console.error('Response data:', error.response?.data);
-        setMessage(error.response?.data?.message)
+        console.error("Response data:", error.response?.data);
+        setMessage(error.response?.data?.message);
       }
     } finally {
       setLoading(false);
@@ -52,27 +51,53 @@ const Header = () => {
 
   const toggleTheme = () => {
     setlightTheme(!lightTheme);
-    console.log('theme');
+    console.log("theme");
   };
 
   return (
-    <div className={`flex md:flex-row lg:flex-row flex-col justify-between items-center w-full ${lightTheme ? 'light-theme' : 'dark-theme'}`}>
+    <div
+      className={`flex md:flex-row lg:flex-row flex-col justify-between items-center w-full ${
+        lightTheme ? "light-theme" : "dark-theme"
+      }`}
+    >
       <div className="flex w-1/4 flex-row">
         <div className="flex">
-          <img src={WeatherIcon} alt="icon" className="rounded-[100%] w-[70px] h-[50px]" />
+          <img
+            src={WeatherIcon}
+            alt="icon"
+            className="rounded-[100%] md:w-[70px] md:h-[50px] lg:w-[70px] lg:h-[50px] hidden md:inline-block lg:inline-block"
+          />
         </div>
         <div className="flex justify-center items-center">
-          <h1 className={`text-lg font-semibold ${lightTheme ? 'text-black' : 'text-white'}`}>WEATHERY</h1>
+          <h1
+            className={`text-lg font-semibold ${
+              lightTheme ? "text-black" : "text-white"
+            }`}
+          >
+            WEATHERY
+          </h1>
         </div>
       </div>
       <div className="flex w-1/3 items-center justify-center my-2 md:my-0 lg:my-0">
-        <Input placeholder="Enter city name 🔎" onInputChange={handleInputChange} />
-        <button className={`flex bg-blue justify-center items-center p-2 border mx-2 ${lightTheme ? 'text-black' : 'text-white'}`} onClick={getWeatherData}>
+        <Input
+          placeholder="Enter city name 🔎"
+          onInputChange={handleInputChange}
+        />
+        <button
+          className={`flex bg-blue justify-center items-center p-2 border mx-2 ${
+            lightTheme ? "text-black" : "text-white"
+          }`}
+          onClick={getWeatherData}
+        >
           GET
         </button>
       </div>
       <div className="flex w-1/4 items-center justify-center md:justify-end lg:justify-end px-2 my-2 md:my-0 lg:my-0">
-        <DarkModeSwitch checked={!lightTheme} onChange={toggleTheme} size={40} />
+        <DarkModeSwitch
+          checked={!lightTheme}
+          onChange={toggleTheme}
+          size={40}
+        />
       </div>
     </div>
   );
