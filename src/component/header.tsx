@@ -39,6 +39,7 @@ const Header = () => {
       if (isAxiosError(error)) {
         console.error("Response data:", error.response?.data);
         setMessage(error.response?.data?.message);
+        alert(error.response?.data?.message);
       }
     } finally {
       setLoading(false);
