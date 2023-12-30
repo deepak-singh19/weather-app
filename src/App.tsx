@@ -6,8 +6,7 @@ function App() {
   const {lightTheme}= useAppContext();
 
   return (
-    <div className={`w-full flex md:w-screen ${lightTheme ? 'bg-white' : 'bg-black'}`}>
-      
+    <div className={`w-full h-full flex md:w-screen ${lightTheme ? 'bg-white' : 'bg-black'}`}>
         <Dashboard/>
     </div>
   )
