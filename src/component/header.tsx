@@ -1,11 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import WeatherIcon from "../assets/weathericon.png";
 import { useAppContext } from "../context/contextProvider";
 import axios, { isAxiosError } from "axios";
 import Input from "./Input";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
+import Modal from "./modal";
 
 const Header = () => {
+
+  const [isModal, setIsModal] = useState(false);
+
+
+  const onOkay=()=>{
+    setIsModal(false);
+  };
+
+
   const {
     city,
     setCity,
@@ -39,7 +49,8 @@ const Header = () => {
       if (isAxiosError(error)) {
         console.error("Response data:", error.response?.data);
         setMessage(error.response?.data?.message);
-        alert(error.response?.data?.message);
+        setIsModal(true);
+        // alert(error.response?.data?.message);
       }
     } finally {
       setLoading(false);
@@ -57,7 +68,7 @@ const Header = () => {
 
   return (
     <div
-      className={`flex md:flex-row lg:flex-row flex-col justify-between items-center w-full ${
+      className={`flex md:flex-row lg:flex-row flex-col cursor-pointer justify-between items-center w-full ${
         lightTheme ? "light-theme" : "dark-theme"
       }`}
     >
@@ -100,6 +111,10 @@ const Header = () => {
           size={40}
         />
       </div>
+      {
+        isModal?<Modal onOkay={onOkay} message="City not found"/>:""
+      }
+
     </div>
   );
 };

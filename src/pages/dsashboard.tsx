@@ -65,7 +65,7 @@ const Dashboard: React.FC = () => {
               <h1 className={`absolute top-[176px] left-[20px] p-4 text-3xl ${lightTheme ? 'text-white' : 'text-white'}`}>{weatherData?.weather[0]?.main}</h1>
               <h1 className={`absolute top-[210px] left-[20px] text-3xl p-4 ${lightTheme ? 'text-white' : 'text-white'}`}>{`${weatherData?.name} , ${weatherData?.sys?.country}`}</h1>
             </div>
-            <div className={`flex flex-col md:flex-row lg:flex-row w-full justify-between my-2 border p-4 rounded-md ${lightTheme ? 'bg-white' : 'bg-black'}`}>
+            <div className={`flex flex-col cursor-default md:flex-row lg:flex-row w-full justify-between my-2 border p-4 rounded-md ${lightTheme ? 'bg-white' : 'bg-black'}`}>
               <div className='w-full md:w-1/6 lg:w-1/6 mb-4 md:mb-0 lg:mb-0'>
                 <WeatherCard title='Sunrise' icon='sunrise' value={sunRise} />
               </div>
