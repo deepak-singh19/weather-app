@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
     lightTheme,
     setNow,
     loading,
+    message
   } = useAppContext();
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
         </>
-          </>:<div className={`w-full h-[100vh] flex justify-center items-center ${lightTheme ? 'text-black' : 'text-white'}`}>Search The City Name</div>
+          </>:<div className={`w-full h-[100vh] flex justify-center items-center ${lightTheme ? 'text-black' : 'text-white'}`}>{message}</div>
         )
         
       }

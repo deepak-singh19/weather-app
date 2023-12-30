@@ -1,5 +1,5 @@
 import React from 'react';
-import { Images } from '../utils/utilityFunction'; // Adjust the import path based on your project structure
+import { Images } from '../utils/utilityFunction';
 import { useAppContext } from '../context/contextProvider';
 
 interface WeatherCardProps {

@@ -11,6 +11,8 @@ interface AppContextProps {
   setNow: (now : boolean)=>void;
   loading: boolean;
   setLoading: (loading: boolean)=> void;
+  message: string;
+  setMessage: (message:string)=>void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -33,6 +35,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [weatherData, setWeatherData]= useState<any>();
   const [now, setNow] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage]= useState("Search the city...")
 
   const contextValue: AppContextProps = {
     city,
@@ -44,7 +47,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     now, 
     setNow,
     loading,
-    setLoading
+    setLoading,
+    message,
+    setMessage
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

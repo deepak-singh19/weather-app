@@ -1,7 +1,7 @@
 import  { useEffect } from 'react';
 import WeatherIcon from '../assets/weathericon.png';
 import { useAppContext } from '../context/contextProvider';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import  Input from './Input';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
@@ -15,6 +15,7 @@ const Header = () => {
     lightTheme,
     setNow,
     setLoading,
+    setMessage
   } = useAppContext();
 
   useEffect(() => {
@@ -32,11 +33,14 @@ const Header = () => {
       const newWeatherData = response.data;
 
       localStorage.setItem('weatherData', JSON.stringify(newWeatherData));
-
-      // Update state
       setWeatherData(newWeatherData);
     } catch (error) {
-      console.error('Error fetching weather data:', error);
+      
+      console.error('Error fetching weather data:',error);
+      if (isAxiosError(error)) {
+        console.error('Response data:', error.response?.data);
+        setMessage(error.response?.data?.message)
+      }
     } finally {
       setLoading(false);
     }

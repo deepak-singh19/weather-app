@@ -26,7 +26,7 @@ import Humidity from '../assets/humidity-removebg-preview.png';
 type ImagesType = {
     [key: string]: string;
   };
-// Create an object mapping file names to import statements
+
 export const Images: ImagesType  = {
     "01d": image01d,
     "01n": image01n2,
@@ -53,7 +53,6 @@ export const Images: ImagesType  = {
   };
 
 
-// You can use these imported variables as image sources in your components
 
 
 export const kelToCel = (k: number): number => {
@@ -80,14 +79,3 @@ export const kelToCel = (k: number): number => {
   }
 
 
-  
-//   {weatherData && (
-//     <div>
-//       <h2>{weatherData.name}</h2>
-//       <p>Temperature: {temp} °C</p>
-//       <p>Humidity: {weatherData.main.humidity}%</p>
-//       <p>Sun rise: {sunRise}</p>
-//       <p>Sun set: {sunSet}</p>
-//       {/* Add more weather details as needed */}
-//     </div>
-//   )}
