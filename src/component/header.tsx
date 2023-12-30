@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import WeatherIcon from '../assets/weathericon.png';
 import { useAppContext } from '../context/contextProvider';
 import axios from 'axios';
@@ -13,7 +13,6 @@ const Header = () => {
     weatherData,
     setlightTheme,
     lightTheme,
-    loading,
     setNow,
     setLoading,
   } = useAppContext();

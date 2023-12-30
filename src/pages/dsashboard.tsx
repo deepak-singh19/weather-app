@@ -6,7 +6,6 @@ import { useAppContext } from '../context/contextProvider';
 import {
   kelToCel,
   convertTimestampToReadableTime,
-  Images,
 } from "../utils/utilityFunction";
 import LoadingSpinner from '../component/loadingSpinner';
 
@@ -16,16 +15,12 @@ const Dashboard: React.FC = () => {
   const [temp, setTemp] = useState<number>();
 
   const {
-    city,
-    setCity,
+   
     setWeatherData,
     weatherData,
-    setlightTheme,
     lightTheme,
     setNow,
-    now,
     loading,
-    setLoading,
   } = useAppContext();
 
   useEffect(() => {
