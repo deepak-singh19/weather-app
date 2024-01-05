@@ -10,6 +10,7 @@ import {
   hourlyData,
   dailyData,
   formatTime,
+  convertTimestampToReadableTime
 } from "../utils/utilityFunction";
 import LoadingSpinner from "../component/loadingSpinner";
 import { MdArrowUpward, MdArrowDownward } from "react-icons/md";
@@ -18,8 +19,7 @@ import { WiHumidity } from "react-icons/wi";
 import { FaTemperatureHigh } from "react-icons/fa";
 
 const Dashboard: React.FC = () => {
-  // const [sunRise, setSunRise] = useState<String>("");
-  // const [sunSet, setSunSet] = useState<String>("");
+  const [time, setTime] = useState<string>("");
   const [temp, setTemp] = useState<number>();
   // const [imageLoaded, setImageLoaded] = useState(false);
   const [hourly, setHourly] = useState<any>();
@@ -41,6 +41,8 @@ const Dashboard: React.FC = () => {
     // let set = convertTimestampToReadableTime(weatherData?.sys?.sunset);
     // setSunRise(rise);
     // setSunSet(set);
+    let currTime= convertTimestampToReadableTime(weatherData?.dt);
+    setTime(currTime);
     let tempInCel = kelToCel(weatherData?.main?.temp);
     setTemp(tempInCel);
     if (foreCast) {
@@ -114,11 +116,7 @@ const Dashboard: React.FC = () => {
                   className={` text-lg ${
                     lightTheme ? "text-black" : "text-white"
                   }`}
-                >{`${formatDate(
-                  weatherData?.dt,
-                  weatherData?.timezone,
-                  "cccc"
-                )}`}</h1>
+                >{convertTimestampToReadableTime(foreCast.current.last_updated)}</h1>
                 <h1
                   className={` text-[80px] ${
                     lightTheme ? "text-black" : "text-white"

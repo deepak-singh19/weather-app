@@ -62,23 +62,20 @@ export const kelToCel = (k: number): number => {
   };
 
   export function convertTimestampToReadableTime(timestamp: number): string {
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const originalDateTime = new Date(timestamp);
   
-    const date = new Date(timestamp * 1000);
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric' as const, 
+      month: 'long' as const, 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      hour12: true 
+    };
   
-    const year = date.getFullYear();
-    const month = months[date.getMonth()];
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    const dayOfWeek = daysOfWeek[date.getDay()];
-  
-    const readableTime = `${dayOfWeek}, ${month} ${day}, ${year} ${hours}:${minutes}:${seconds}`;
-    return readableTime;
+    return originalDateTime.toLocaleString('en-US', options);
   }
-
+  
   export const formatDate=(secs: any, zones: any, format="cccc, dd LLL yyyy' | Local time: 'hh:mm a")=>{
     return DateTime.fromSeconds(secs).setZone(zones).toFormat(format);
 
