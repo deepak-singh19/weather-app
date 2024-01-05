@@ -19,7 +19,7 @@ import { WiHumidity } from "react-icons/wi";
 import { FaTemperatureHigh } from "react-icons/fa";
 
 const Dashboard: React.FC = () => {
-  const [time, setTime] = useState<string>("");
+  // const [time, setTime] = useState<string>("");
   const [temp, setTemp] = useState<number>();
   // const [imageLoaded, setImageLoaded] = useState(false);
   const [hourly, setHourly] = useState<any>();
@@ -41,8 +41,8 @@ const Dashboard: React.FC = () => {
     // let set = convertTimestampToReadableTime(weatherData?.sys?.sunset);
     // setSunRise(rise);
     // setSunSet(set);
-    let currTime= convertTimestampToReadableTime(weatherData?.dt);
-    setTime(currTime);
+    // let currTime= convertTimestampToReadableTime(weatherData?.dt);
+    // setTime(currTime);
     let tempInCel = kelToCel(weatherData?.main?.temp);
     setTemp(tempInCel);
     if (foreCast) {
