@@ -9,6 +9,8 @@ import Modal from "./modal";
 const Header = () => {
 
   const [isModal, setIsModal] = useState(false);
+  const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+  const foreCastKey= import.meta.env.VITE_FORECAST_API_KEY;
 
 
   const onOkay=()=>{
@@ -26,31 +28,40 @@ const Header = () => {
     setNow,
     setLoading,
     setMessage,
+    setForeCast
   } = useAppContext();
 
+
   useEffect(() => {
-    console.log(weatherData);
+    console.log('weatherdata ',weatherData);
     console.log(lightTheme);
+    console.log(city);
+    // response();
+    
   }, [weatherData, lightTheme]);
 
   const getWeatherData = async () => {
     try {
       setLoading(true);
       setNow(true);
-      const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
-      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+      //https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${apiKey}
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${apiKey}`;//https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no
       const response = await axios.get(apiUrl);
       const newWeatherData = response.data;
-
+      const dailyResponse = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${foreCastKey}&q=${city}&days=5&aqi=no&alerts=no`);
+      localStorage.setItem("forecast", JSON.stringify(dailyResponse.data));
+      console.log(dailyResponse.data);
+      setForeCast(dailyResponse.data);
+      console.log(newWeatherData);
       localStorage.setItem("weatherData", JSON.stringify(newWeatherData));
       setWeatherData(newWeatherData);
+      console.log('heyyyyyyyy');
     } catch (error) {
       console.error("Error fetching weather data:", error);
       if (isAxiosError(error)) {
         console.error("Response data:", error.response?.data);
         setMessage(error.response?.data?.message);
         setIsModal(true);
-        // alert(error.response?.data?.message);
       }
     } finally {
       setLoading(false);
@@ -58,6 +69,8 @@ const Header = () => {
   };
 
   const handleInputChange = (value: string) => {
+    // console.log(value);
+    // console.log('city', city);
     setCity(value);
   };
 
@@ -92,16 +105,17 @@ const Header = () => {
       </div>
       <div className="flex w-1/3 items-center justify-center my-2 md:my-0 lg:my-0">
         <Input
-          placeholder="Enter city name 🔎"
+          placeholder="Get Weather Data"
           onInputChange={handleInputChange}
+          onEnter={getWeatherData}
         />
         <button
-          className={`flex bg-blue justify-center items-center p-2 border mx-2 ${
+          className={`flex justify-center items-center p-2 rounded-md bg-rose-500 border mx-1 ${
             lightTheme ? "text-black" : "text-white"
           }`}
           onClick={getWeatherData}
         >
-          GET
+          🔎
         </button>
       </div>
       <div className="flex w-1/4 items-center justify-center md:justify-end lg:justify-end px-2 my-2 md:my-0 lg:my-0">

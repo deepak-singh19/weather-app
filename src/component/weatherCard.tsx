@@ -12,7 +12,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ title, icon, value }) => {
   const { lightTheme } = useAppContext();
 
   return (
-    <div className={`flex w-[100%] h-[280px] flex-col border rounded-md p-5 ${lightTheme ? 'bg-white' : 'bg-zinc-700'}`}>
+    <div className={`flex w-[100%] h-[280px] flex-col border rounded-md p-5`}>
       <div className='flex items-center w-full justify-center'>
         <p className={`text-2xl ${lightTheme ? 'text-black' : 'text-white'}`}>{title}</p>
       </div>

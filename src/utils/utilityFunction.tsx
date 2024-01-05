@@ -21,6 +21,7 @@ import Sunrise from "../assets/sunrise.svg";
 import Sunset from '../assets/sunset.svg';
 import Wind from '../assets/wind-removebg-preview.png';
 import Humidity from '../assets/humidity-removebg-preview.png';
+import { DateTime } from "luxon";
 
 
 type ImagesType = {
@@ -76,6 +77,32 @@ export const kelToCel = (k: number): number => {
   
     const readableTime = `${dayOfWeek}, ${month} ${day}, ${year} ${hours}:${minutes}:${seconds}`;
     return readableTime;
+  }
+
+  export const formatDate=(secs: any, zones: any, format="cccc, dd LLL yyyy' | Local time: 'hh:mm a")=>{
+    return DateTime.fromSeconds(secs).setZone(zones).toFormat(format);
+
+  }
+
+  export const hourlyData=(data: any)=>{
+
+    return data.forecast.forecastday[0].hour;
+  }
+
+  export const dailyData=(data: any)=>{
+
+    return data.forecast.forecastday.splice(1,4);
+  }
+
+  export const formatTime =(dateTimeString: string)=> {
+    const dateTime = new Date(dateTimeString);
+    const hours = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+  
+    // Format the time
+    const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  
+    return formattedTime;
   }
 
 
